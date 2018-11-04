@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 3
+  template:
+    metadata:
+      name: frontend
+      labels:
+        env: prod
+        app: frontend
+        version: v1
+    spec:
+
+      containers:
+        - image: docker.io/rralcala/pkstore:latest
+          imagePullPolicy: Always
+          name: pkstore
+          ports:
+            - containerPort: 5000
+              name: http
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "300m"
+              memory: "128Mi"
+            limits:
+              cpu: "400m"
+              memory: "256Mi"
